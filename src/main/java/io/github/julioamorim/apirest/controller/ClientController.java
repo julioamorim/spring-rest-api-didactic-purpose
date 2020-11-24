@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping({"/clients"})
+@RequestMapping("/clients")
 public class ClientController {
 
     private final ClientRepository clientRepository;
@@ -24,7 +24,7 @@ public class ClientController {
     }
 
     // endpoint to get clients by id
-    @GetMapping({"/clientId"})
+    @GetMapping("/{clientId}")
     public ResponseEntity<Client> findClientsById(@PathVariable Integer clientId) {
         return clientRepository.findById(clientId).map(clientRecord ->  ResponseEntity.ok().body(clientRecord)).orElse(ResponseEntity.notFound().build());
     }
@@ -36,7 +36,7 @@ public class ClientController {
     }
 
     //endpoint to update a client
-    @PutMapping({"/clientId"})
+    @PutMapping("/{clientId}")
     public ResponseEntity<Client> updateClient(@PathVariable Integer clientId, @RequestBody Client client) {
         return clientRepository.findById(clientId).map(
 
@@ -50,7 +50,7 @@ public class ClientController {
     }
 
     //endpoint to delete a client
-    @DeleteMapping({"/clientId"})
+    @DeleteMapping("/{clientId}")
     public ResponseEntity<?> deleteClient(@PathVariable("clientId") Integer clientId){
         return clientRepository.findById(clientId).map(
                 clientData ->
